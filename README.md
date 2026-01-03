@@ -11,3 +11,4 @@ Read at [readcc.net](https://readcc.net/posts/copymywrite/).
 ## Resources
 - https://github.com/btbd/ddma
 - https://github.com/cutecatsandvirtualmachines/DDMA
+- https://github.com/can1357/ThePerfectInjector
