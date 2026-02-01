@@ -98,8 +98,10 @@ namespace disk
         status = ScsiIssueCommand(SCSIOP_WRITE, emptyBuffer, (ULONG)size);
         if (!status) {
             Log("Zeroing command failed.\n");
+            VirtualFree(emptyBuffer, 0, MEM_RELEASE);
             return status;
         }
+        VirtualFree(emptyBuffer, 0, MEM_RELEASE);
         return status;
 
     }
@@ -136,7 +138,7 @@ namespace disk
 
         CREATE_VIRTUAL_DISK_PARAMETERS params{ };
         params.Version = CREATE_VIRTUAL_DISK_VERSION_1;
-        params.Version1.MaximumSize = 3ull * 1024 * 1024; // 1MB
+        params.Version1.MaximumSize = 3ull * 1024 * 1024; // 3MB
         params.Version1.BlockSizeInBytes = CREATE_VIRTUAL_DISK_PARAMETERS_DEFAULT_BLOCK_SIZE;
         params.Version1.SectorSizeInBytes = CREATE_VIRTUAL_DISK_PARAMETERS_DEFAULT_SECTOR_SIZE;
         params.Version1.ParentPath = NULL;
@@ -182,7 +184,7 @@ namespace disk
             0,
             nullptr);
 
-        if (hr != 0) return false;
+        if (deviceHandle == INVALID_HANDLE_VALUE) return false;
 
         return true;
     }

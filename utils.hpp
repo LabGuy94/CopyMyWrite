@@ -37,7 +37,7 @@ bool isPageShared(PVOID address) {
 
 	for (ULONG i = 0; i < pwsi->NumberOfEntries; i++) {
 		PSAPI_WORKING_SET_BLOCK wsb = pwsi->WorkingSetInfo[i];
-		if ((UINT64)address <= wsb.VirtualPage * 0x1000)
+		if ((UINT64)address >> 12 == wsb.VirtualPage)
 		{
 			result = wsb.Shared;
 			break;
