@@ -18,7 +18,10 @@ int main(int argc, char* argv[])
 	}
 
 	UINT32 targetPid = atoi(argv[1]);
-
+          if (targetPid <= 4) { // system PIDs are unsafe
+                Log("Invalid or unsafe target PID");
+                  return 1;
+             }
 	ExecuteShellcode(targetPid, (UINT64)&Shellcode, (UINT64)&EndOfShellcode, +[](UINT32 pid) {
 		system("pause");
 	});
